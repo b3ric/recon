@@ -2,8 +2,9 @@ import socket
 import nmap
 import sys
 import argparse
+from typing import Dict
 
-def find_open_ports(ip: str) -> dict[int, str]:
+def find_open_ports(ip: str) -> Dict[int, str]:
     nm = nmap.PortScanner()
     
     try:
@@ -30,7 +31,7 @@ def main():
     parser.add_argument("host", help="Host to scan (domain or IP address)")
     args = parser.parse_args()
 
-    host = args.host
+    host = args.host.split("=")[1]
 
     try:
         ip = socket.gethostbyname(host)
