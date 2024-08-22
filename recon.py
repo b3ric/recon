@@ -33,6 +33,8 @@ def main():
 
     host = args.host.split("=")[1]
 
+    print(f'Recon init on <{host}>')
+    
     try:
         ip = socket.gethostbyname(host)
     except socket.gaierror as e:
