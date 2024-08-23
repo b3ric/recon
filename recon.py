@@ -1,14 +1,16 @@
 import socket
+from time import sleep
 import nmap
 import sys
 import argparse
 from typing import Dict
+from internal import ident
 
 def find_open_ports(ip: str) -> Dict[int, str]:
     nm = nmap.PortScanner()
     
     try:
-        nm.scan(ip, arguments='-sV')
+        nm.scan(ip, arguments='-sVC')
     except nmap.PortScannerError as e:
         print(f"nmap error occurred: {e}")
         return {}
@@ -26,7 +28,8 @@ def find_open_ports(ip: str) -> Dict[int, str]:
 
     return open_ports
 
-def main(): 
+def main():
+    ident.test()
     parser = argparse.ArgumentParser(description="Port scanner using nmap")
     parser.add_argument("host", help="Host to scan (domain or IP address)")
     args = parser.parse_args()
@@ -51,4 +54,13 @@ def main():
         print(f"No open ports found on {ip} or nmap scan failed.")
 
 if __name__ == "__main__":
+    ascii_art = """
+     !!!           |"|                     #   ___          _   _     
+  `  _ _  '       _|_|_         ,,,,,      #  <_*_>        '\\-//`    
+ -  (OXO)  -      (o o)        /(o o)\     #  (o o)         (o o)     
+ooO--(_)--Ooo-ooO--(_)--Ooo-ooO--(_)--Ooo--8---(_)--Ooo-ooO--(_)--Ooo-
+"""
+    print(ascii_art + "\n")
+    sleep(1)
+
     main()
