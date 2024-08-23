@@ -43,6 +43,9 @@ def main():
         print(f"DNS resolution error: {e}")
         sys.exit(1)
     
+    sleep(1)
+    print(f'ip found: {ip}')
+    
     open_ports = find_open_ports(ip)
 
     if open_ports:
