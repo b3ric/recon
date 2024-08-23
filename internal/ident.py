@@ -10,10 +10,6 @@ Usage: ident-user-enum.py ip port [ port [ port ... ] ]
 Queries the ident service (113/TCP) to determine the OS-level user running 
 the process listening on a given TCP port. More than one port can be supplied.\n\n"""
 
-
-def test():
-    print("hellooooooooo")
-
 def lookup_ident(ip, port, timeout=5):
     try:
         sock = socket.create_connection((ip, port), timeout=timeout)

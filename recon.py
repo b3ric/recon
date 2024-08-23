@@ -29,7 +29,6 @@ def find_open_ports(ip: str) -> Dict[int, str]:
     return open_ports
 
 def main():
-    ident.test()
     parser = argparse.ArgumentParser(description="Port scanner using nmap")
     parser.add_argument("host", help="Host to scan (domain or IP address)")
     args = parser.parse_args()
