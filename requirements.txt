@@ -1,0 +1,2 @@
+python-whois==0.9.4
+python-nmap==0.7.1
