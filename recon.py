@@ -1,59 +1,30 @@
 import socket
 from time import sleep
-import nmap
 import sys
 import argparse
-from typing import Dict
-from internal import feinler
+from internal import feinler, nmap
 
-def find_open_ports(ip: str) -> Dict[int, str]:
-    nm = nmap.PortScanner()
-    
-    try:
-        nm.scan(ip, arguments='-sVC')
-    except nmap.PortScannerError as e:
-        print(f"nmap error occurred: {e}")
-        return {}
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        return {}
-
-    open_ports = {}
-
-    for proto in nm[ip].all_protocols():
-        ports = nm[ip][proto].keys()
-        for port in ports:
-            service_name = nm[ip][proto][port]['name']
-            open_ports[port] = service_name
-
-    return open_ports
-
-def main():
-    parser = argparse.ArgumentParser(description="Port scanner using nmap")
-    parser.add_argument("host", help="Host to scan (domain or IP address)")
-    args = parser.parse_args()
-
-    host = args.host.split("=")[1]
-
-    print(f'Recon init on <{host}>')
-    
+def recon(host):
     try:
         ip = socket.gethostbyname(host)
     except socket.gaierror as e:
         print(f"DNS resolution error: {e}")
         sys.exit(1)
     
-    sleep(1)
+    sleep(1/2)
     print(f'ip found: {ip}\nLooking for open ports...')
     
-    open_ports = find_open_ports(ip)
+    open_ports = nmap.find_open_ports(ip)
 
     if open_ports:
-        print(f"Open ports and services on {ip}:")
+        print(f"\nOpen ports and services on {ip}:")
         for port, service in open_ports.items():
-            print(f"Port {port}: {service}")
+            print(f"# Port {port}: {service}")
     else:
         print(f"No open ports found on {ip} or nmap scan failed.")
+    
+    print(f"\nwhois {host} ?\n\n")
+    feinler.feinler(host)
 
 if __name__ == "__main__":
     ascii_art = """
@@ -65,4 +36,10 @@ ooO--(_)--Ooo-ooO--(_)--Ooo-ooO--(_)--Ooo--8---(_)--Ooo-ooO--(_)--Ooo-
     print(ascii_art + "\n")
     sleep(1/2)
 
-    main()
+    parser = argparse.ArgumentParser(description="Port scanner using nmap")
+    parser.add_argument("host", help="Host to scan (domain or IP address)")
+    args = parser.parse_args()
+
+    host = args.host.split("=")[1]
+    print(f'Recon init on <{host}>')
+    recon(host)

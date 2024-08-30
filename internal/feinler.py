@@ -1,8 +1,8 @@
 import whois
 from datetime import datetime
 
-def feinler():
-    who = whois.whois('k2tickets.com')
+def feinler(host):
+    who = whois.whois(host)
     for k, v in who.items():
         if isinstance(v, list):
             v = [item.strftime('%Y-%m-%d %H:%M:%S') if isinstance(item, datetime) else item for item in v]

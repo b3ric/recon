@@ -1,4 +1,4 @@
-# TODO: Convert to Python
+# TODO: Decide what should be implemented from here in Python
 subfinder -d "$target" --silent -o "$HOME/$folder_name/subdomains_subfinder.txt"
 assetfinder --subs-only "$target" | tee "$HOME/$folder_name/subdomains_assetfinder.txt"
 amass enum -d "$target" -brute | tee "$HOME/$folder_name/subdomains_amass.txt"
