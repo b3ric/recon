@@ -5,7 +5,7 @@ use Net::Ident;
 use IO::Socket::INET;
 
 my $VERSION = "1.0";
-my $usage = "ident-user-enum v$VERSION ( http://pentestmonkey.net/tools/ident-user-enum )
+my $usage = "ident-user-enum v$VERSION
 
 Usage: ident-user-enum.pl ip port [ port [ port ... ] ]
 

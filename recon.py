@@ -4,7 +4,7 @@ import nmap
 import sys
 import argparse
 from typing import Dict
-from internal import ident
+from internal import feinler
 
 def find_open_ports(ip: str) -> Dict[int, str]:
     nm = nmap.PortScanner()
@@ -44,7 +44,7 @@ def main():
         sys.exit(1)
     
     sleep(1)
-    print(f'ip found: {ip}')
+    print(f'ip found: {ip}\nLooking for open ports...')
     
     open_ports = find_open_ports(ip)
 
@@ -63,6 +63,6 @@ if __name__ == "__main__":
 ooO--(_)--Ooo-ooO--(_)--Ooo-ooO--(_)--Ooo--8---(_)--Ooo-ooO--(_)--Ooo-
 """
     print(ascii_art + "\n")
-    sleep(1)
+    sleep(1/2)
 
     main()
